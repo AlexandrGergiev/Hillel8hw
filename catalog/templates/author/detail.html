@@ -1,0 +1,12 @@
+{% extends "base_generic.html" %} {% block content %}
+
+<h1>Title: {{object.name}}</h1>
+
+<p><strong>Date of Birth:</strong> {{ object.date_of_birth }}</p>
+<p><strong>Date of Death:</strong> {{ object.date_of_death }}</p>
+<p>
+    <strong>Books:</strong>
+    {% for book in object.books.all %} {{ book }}{% if not forloop.last %}, {%endif%} {% endfor %}
+</p>
+
+{% endblock %}
