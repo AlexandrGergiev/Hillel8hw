@@ -1,5 +1,5 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views import generic
 from .models import Book, Author, BookInstance, Genre
 from .forms import ReserveBookForm
@@ -29,10 +29,20 @@ class AuthorUpdateView(generic.UpdateView):
 
 class AuthorDeleteView(generic.DeleteView):
     model = Author
-    fields = "__all__"
-    initial = {
-        "date_of_death": "11/03/2009",
-    }
+
+    def delete_author(request, author_id):
+        model = Author(request)
+        author = get_object_or_404(Author, id=author_id)
+        model.remove(author)
+        return HttpResponseRedirect("/")
+
+
+# def delete(self, request):
+#     if request.method == 'POST':
+#         form = AuthorDeleteForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             redirect('authors')
 
 
 class BookListView(generic.ListView):

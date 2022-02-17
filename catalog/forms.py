@@ -1,7 +1,8 @@
 from django.core.exceptions import ValidationError
 from django import forms
 from datetime import date
-from .models import BookInstance
+from .models import BookInstance, Author
+from django.forms import ModelForm
 
 
 class ReserveBookForm(forms.Form):
@@ -35,3 +36,6 @@ class BookInstanceEditForm(forms.ModelForm):
             raise ValidationError("Invaid date - return in the past")
 
         return data
+
+
+
